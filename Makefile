@@ -22,4 +22,8 @@ run:
 	#docker run -p 127.0.0.1:8080:8080 c1a36ab4da9d
 deploy:
 	#deploy
+	aws ecr get-login-password --region us-east-2 | docker login --username AWS --password-stdin 539267612865.dkr.ecr.us-east-2.amazonaws.com
+	docker build -t wiki .
+	docker tag wiki:latest 539267612865.dkr.ecr.us-east-2.amazonaws.com/wiki:latest
+	docker push 539267612865.dkr.ecr.us-east-2.amazonaws.com/wiki:latest
 all: install post-install lint test deploy
